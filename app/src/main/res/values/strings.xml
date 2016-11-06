@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ex3</string>
+    <string name="main_title">Sheep order form</string>
+    <string name="input_ins">Please select num of sheeps:</string>
+    <string name="input_hint_content">Type here...</string>
+    <string name="checkbox_title">With food</string>
+    <string name="button_content">Make order</string>
+    <string name="sent_massage_cont">Your order has been sent!</string>
+    <string name="ordersend_title">OrderSent</string>
+</resources>
