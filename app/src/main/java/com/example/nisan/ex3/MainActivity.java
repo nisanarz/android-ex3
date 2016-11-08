@@ -3,6 +3,7 @@ package com.example.nisan.ex3;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar_id);
+        setSupportActionBar(toolBar);
 
         numInputText = (EditText) findViewById(R.id.input_id);
         foodCheckbox = (CheckBox) findViewById(R.id.checkbox_id);
