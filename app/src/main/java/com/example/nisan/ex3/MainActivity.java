@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox foodCheckbox;
     private Button orderButton;
     private SeekBar seekBar;
+    private Menu menu;
+    private MenuItem send_order_button;
+    public final static String EXTRA_MESSAGE = "com.example.nisan.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
         orderButton = (Button) findViewById(R.id.button_id);
         seekBar = (SeekBar) findViewById(R.id.seek_id);
 
+        inputTextHandler();
+        seekbarHandler();
+        checkBoxHandler();
+
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(SelectFoodActivity.EXTRA_MESSAGE);
+        if (message != null){
+            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void inputTextHandler(){
         numInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -62,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void seekbarHandler(){
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 0;
 
@@ -92,14 +112,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void checkBoxHandler(){
         foodCheckbox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 checkButtonValid();
             }
         });
-
     }
 
     public void makeOrder(View view){
@@ -117,12 +138,47 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void selectFood(View view){
+        Intent intent = new Intent(this, SelectFoodActivity.class);
+
+        startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.menu_item, menu);
+        send_order_button = menu.findItem(R.id.send_order_menu_button); //menu.getItem(0);
+        send_order_button.setEnabled(false);
+        checkButtonValid();
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.send_order_menu_button:
+                makeOrder(item.getActionView());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void checkButtonValid(){
         if (foodCheckbox.isChecked() && checkEditTextInput(numInputText)){
             orderButton.setEnabled(true);
+            if (send_order_button != null){
+                send_order_button.setEnabled(true);
+            }
         }
         else {
             orderButton.setEnabled(false);
+            if (send_order_button != null){
+                send_order_button.setEnabled(false);
+            }
         }
     }
 

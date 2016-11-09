@@ -8,8 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +18,10 @@
         <activity
             android:name=".OrderSendActivity"
             android:label="@string/ordersend_title"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".SelectFoodActivity"
+            android:label="@string/selectfood_title">
 
         </activity>
     </application>
