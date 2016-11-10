@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private MenuItem send_order_button;
     public final static String EXTRA_MESSAGE = "com.example.nisan.MESSAGE";
+    public final static String EXTRA_INPUTSTATE = "com.example.nisan.INPUTSTATE";
+    public final static String EXTRA_CHECKBOXSTATE = "com.example.nisan.CHECKBOXSTATE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(SelectFoodActivity.EXTRA_MESSAGE);
+        String inputValue = intent.getStringExtra(SelectFoodActivity.EXTRA_INPUTSTATE);
+        String checkboxValue = intent.getStringExtra(SelectFoodActivity.EXTRA_CHECKBOXSTATE);
         if (message != null){
             Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        }
+        if (inputValue != null){
+            numInputText.setText(inputValue);
+        }
+        if (checkboxValue != null){
+            foodCheckbox.setChecked(checkboxValue.equals("0")?false:true);
         }
     }
 
@@ -140,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectFood(View view){
         Intent intent = new Intent(this, SelectFoodActivity.class);
-
+        intent.putExtra(EXTRA_INPUTSTATE, numInputText.getText().toString());
+        intent.putExtra(EXTRA_CHECKBOXSTATE, foodCheckbox.isChecked()?"1":"0");
         startActivity(intent);
     }
 
