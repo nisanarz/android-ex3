@@ -50,15 +50,17 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(SelectFoodActivity.EXTRA_MESSAGE);
         String inputValue = intent.getStringExtra(SelectFoodActivity.EXTRA_INPUTSTATE);
-        String checkboxValue = intent.getStringExtra(SelectFoodActivity.EXTRA_CHECKBOXSTATE);
+        Boolean checkboxValue = intent.getBooleanExtra(SelectFoodActivity.EXTRA_CHECKBOXSTATE,false);
+        intent.removeExtra(EXTRA_MESSAGE);
         if (message != null){
             Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+            message=null;
         }
         if (inputValue != null){
             numInputText.setText(inputValue);
         }
         if (checkboxValue != null){
-            foodCheckbox.setChecked(checkboxValue.equals("0")?false:true);
+            foodCheckbox.setChecked(checkboxValue);
         }
     }
 
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     public void selectFood(View view){
         Intent intent = new Intent(this, SelectFoodActivity.class);
         intent.putExtra(EXTRA_INPUTSTATE, numInputText.getText().toString());
-        intent.putExtra(EXTRA_CHECKBOXSTATE, foodCheckbox.isChecked()?"1":"0");
+        intent.putExtra(EXTRA_CHECKBOXSTATE, foodCheckbox.isChecked());
         startActivity(intent);
     }
 

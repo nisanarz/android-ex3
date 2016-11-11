@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">תרגיל 3</string>
+    <string name="main_title">טופס הזמנת כבשים</string>
+    <string name="input_ins">אנא בחר מספר כבשים:</string>
+    <string name="input_hint_content">Type here...</string>
+    <string name="checkbox_title">עם אוכל</string>
+    <string name="button_content">בצע הזמנה</string>
+    <string name="sent_massage_cont">ההזמנה נשלחה!</string>
+    <string name="ordersend_title">ההזמנה נשלחה</string>
+    <string name="menu_button">שלח הזמנה</string>
+    <string name="selectfood_title">בחר אוכל</string>
+    <string name="select_button_content">בחר</string>
+</resources>

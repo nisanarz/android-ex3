@@ -17,10 +17,10 @@ public class SelectFoodActivity extends AppCompatActivity {
     public final static String EXTRA_CHECKBOXSTATE = "com.example.nisan.CHECKBOXSTATE";
 
     private String inputbox;
-    private String checkbox;
+    private Boolean checkbox;
     ListView listView;
 
-    private String[] values = new String[] {"Banana","Mango","Melon","Dates","cinnamon"};
+    private String[] values = new String[] {"Banana","Mango","Melon","Dates","Cinnamon"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class SelectFoodActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         inputbox = intent.getStringExtra(MainActivity.EXTRA_INPUTSTATE);
-        checkbox = intent.getStringExtra(MainActivity.EXTRA_CHECKBOXSTATE);
+        checkbox = intent.getBooleanExtra(MainActivity.EXTRA_CHECKBOXSTATE,false);
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar_id);
         setSupportActionBar(toolBar);
@@ -56,6 +56,7 @@ public class SelectFoodActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, selected);
         intent.putExtra(EXTRA_INPUTSTATE, inputbox);
         intent.putExtra(EXTRA_CHECKBOXSTATE, checkbox);
+
         startActivity(intent);
     }
 }

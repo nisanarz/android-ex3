@@ -1,6 +1,7 @@
 package com.example.nisan.ex3;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,8 @@ public class CustomFruitListAdapter extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon_id);
 
         textView.setText(values[position]);
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        int drawableResourceId = this.context.getResources().getIdentifier(values[position].toLowerCase(), "drawable", this.context.getPackageName());
+        imageView.setImageResource(drawableResourceId);
 
         return rowView;
     }
