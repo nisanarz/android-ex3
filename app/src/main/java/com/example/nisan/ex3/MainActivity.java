@@ -22,12 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText numInputText;
     private CheckBox foodCheckbox;
     private Button orderButton;
+    private Button selectButton;
     private SeekBar seekBar;
     private Menu menu;
     private MenuItem send_order_button;
     public final static String EXTRA_MESSAGE = "com.example.nisan.MESSAGE";
     public final static String EXTRA_INPUTSTATE = "com.example.nisan.INPUTSTATE";
     public final static String EXTRA_CHECKBOXSTATE = "com.example.nisan.CHECKBOXSTATE";
+    public final static int askForFoodType =1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +43,44 @@ public class MainActivity extends AppCompatActivity {
         foodCheckbox = (CheckBox) findViewById(R.id.checkbox_id);
         orderButton = (Button) findViewById(R.id.button_id);
         seekBar = (SeekBar) findViewById(R.id.seek_id);
+        selectButton = (Button) findViewById(R.id.select_button_id);
 
         inputTextHandler();
         seekbarHandler();
         checkBoxHandler();
 
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(SelectFoodActivity.EXTRA_MESSAGE);
-        String inputValue = intent.getStringExtra(SelectFoodActivity.EXTRA_INPUTSTATE);
-        Boolean checkboxValue = intent.getBooleanExtra(SelectFoodActivity.EXTRA_CHECKBOXSTATE,false);
-        intent.removeExtra(EXTRA_MESSAGE);
-        if (message != null){
-            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-            message=null;
-        }
-        if (inputValue != null){
-            numInputText.setText(inputValue);
-        }
-        if (checkboxValue != null){
-            foodCheckbox.setChecked(checkboxValue);
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SelectFoodActivity.class);
+                startActivityForResult(intent,askForFoodType);
+            }
+        });
+
+//        Intent intent = getIntent();
+//        String message = intent.getStringExtra(SelectFoodActivity.EXTRA_MESSAGE);
+//        String inputValue = intent.getStringExtra(SelectFoodActivity.EXTRA_INPUTSTATE);
+//        Boolean checkboxValue = intent.getBooleanExtra(SelectFoodActivity.EXTRA_CHECKBOXSTATE,false);
+//        intent.removeExtra(EXTRA_MESSAGE);
+//        if (message != null){
+//            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+//            message=null;
+//        }
+//        if (inputValue != null){
+//            numInputText.setText(inputValue);
+//        }
+//        if (checkboxValue != null){
+//            foodCheckbox.setChecked(checkboxValue);
+//        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == askForFoodType && resultCode == RESULT_OK && data != null) {
+            Toast.makeText(getApplicationContext(),data.getExtras().getString(EXTRA_MESSAGE)
+                    ,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -150,12 +170,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void selectFood(View view){
-        Intent intent = new Intent(this, SelectFoodActivity.class);
-        intent.putExtra(EXTRA_INPUTSTATE, numInputText.getText().toString());
-        intent.putExtra(EXTRA_CHECKBOXSTATE, foodCheckbox.isChecked());
-        startActivity(intent);
-    }
+//    public void selectFood(View view){
+//        Intent intent = new Intent(this, SelectFoodActivity.class);
+//        intent.putExtra(EXTRA_INPUTSTATE, numInputText.getText().toString());
+//        intent.putExtra(EXTRA_CHECKBOXSTATE, foodCheckbox.isChecked());
+//        startActivity(intent);
+//    }
 
 
     @Override

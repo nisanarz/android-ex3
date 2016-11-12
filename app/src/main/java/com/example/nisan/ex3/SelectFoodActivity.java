@@ -20,7 +20,7 @@ public class SelectFoodActivity extends AppCompatActivity {
     private Boolean checkbox;
     ListView listView;
 
-    private String[] values = new String[] {"Banana","Mango","Melon","Dates","Cinnamon"};
+    private String[] values;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class SelectFoodActivity extends AppCompatActivity {
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar_id);
         setSupportActionBar(toolBar);
 
+        values = getResources().getStringArray(R.array.foods);
         listView = (ListView) findViewById(R.id.listview_id);
         CustomFruitListAdapter adapter = new CustomFruitListAdapter(this,values);
         listView.setAdapter(adapter);
@@ -45,18 +46,12 @@ public class SelectFoodActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent,View view, int position, long id){
-                makeSelection(((TextView)view.findViewById(R.id.label_id)).getText().toString());
-                //Toast.makeText(getApplicationContext(),((TextView)view.findViewById(R.id.label_id)).getText() +" clicked, item number: " + position, Toast.LENGTH_LONG).show();
+                Intent output = new Intent();
+                output.putExtra(EXTRA_MESSAGE , values[position]);
+                setResult(RESULT_OK, output);
+                finish();
             }
         });
     }
 
-    public void makeSelection(String selected){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, selected);
-        intent.putExtra(EXTRA_INPUTSTATE, inputbox);
-        intent.putExtra(EXTRA_CHECKBOXSTATE, checkbox);
-
-        startActivity(intent);
-    }
 }

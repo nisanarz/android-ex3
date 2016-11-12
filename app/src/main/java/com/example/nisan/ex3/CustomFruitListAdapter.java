@@ -16,11 +16,13 @@ import android.widget.TextView;
 public class CustomFruitListAdapter extends ArrayAdapter<String> {
     private final Context context;
     private final String[] values;
+    private final String[] image_values;
 
     public CustomFruitListAdapter(Context context, String[] values){
         super(context,R.layout.custom_list_item, values);
         this.context = context;
         this.values = values;
+        this.image_values = context.getResources().getStringArray(R.array.foods_image);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class CustomFruitListAdapter extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon_id);
 
         textView.setText(values[position]);
-        int drawableResourceId = this.context.getResources().getIdentifier(values[position].toLowerCase(), "drawable", this.context.getPackageName());
+        int drawableResourceId = this.context.getResources().getIdentifier(image_values[position].toLowerCase(), "drawable", this.context.getPackageName());
         imageView.setImageResource(drawableResourceId);
 
         return rowView;
